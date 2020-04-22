@@ -1,6 +1,7 @@
 package club.banyuan.main;
 
 import club.banyuan.animal.Elephant;
+import club.banyuan.animal.Lion;
 import club.banyuan.machine.Fridge;
 
 class Main {
@@ -13,6 +14,13 @@ class Main {
     // 使用. 访问对象的属性，可以对属性赋值或使用
     elephant.heightInCM = heightInCM;
     return elephant;
+  }
+
+  static Lion createLion(int heightInCM) {
+    System.out.printf("创建一个狮子，高度%d厘米\n", heightInCM);
+    Lion lion = new Lion();
+    lion.heightInCM = heightInCM;
+    return lion;
   }
 
   static Fridge createFridge(int heightInCM) {
