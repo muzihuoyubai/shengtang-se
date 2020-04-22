@@ -46,6 +46,8 @@ class Main {
   public static void main(String[] args) {
     Elephant elephant = createElephant(300);
     Fridge fridge = createFridge(500);
+    Lion lion = createLion(200);
     putInElephant(elephant, fridge);
+    fridge.store(lion);
   }
 }
