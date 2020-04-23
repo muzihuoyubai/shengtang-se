@@ -38,9 +38,8 @@ class Main {
       fridge.store(elephant);
       System.out.printf("冰箱里面的大象高度是%d厘米\n", fridge.storage.heightInCM);
     } else {
-      System.out.printf("冰箱装不下!\n");
+      System.out.println("冰箱装不下!");
     }
-
   }
 
   public static void main(String[] args) {
