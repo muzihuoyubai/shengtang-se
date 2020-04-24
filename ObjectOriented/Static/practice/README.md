@@ -29,12 +29,15 @@ public class StaticDemo {
    }
 }
 ```
+
+```
 A. 15 17 22 28
 B. 15 17 22 17
 C. 15 28 22 28
 D. 22 17 22 28
 E. 22 28 22 28
 F. 编译错误
+```
 
 #### 2.以下选项插入到代码片段中可以编译通过的是
 ```
@@ -55,12 +58,14 @@ static {
 }
 ```
 
+```
 A. exam1 = “A”; instead of // CODE SNIPPET 1
 B. exam 2 = “J”; instead of // CODE SNIPPET 1
 C. exam 1 = “P”; instead of // CODE SNIPPET 2
 D. exam 2 = “8”; instead of // CODE SNIPPET 2
 E. 编译错误
 F. 运行错误
+```
 
 #### 3.以下代码的输出结果是
 
@@ -84,14 +89,14 @@ public static String examName(String s){
    }
 }
 ```
-
+```
 A. O C A
 B. C A O
 C. O A C
 D. C A O
 E. 编译错误
 F. 运行错误
-
+```
 #### 4. 以下代码哪一行会编译错误
 ```
 public class StaticDemo {
@@ -117,14 +122,14 @@ void method1() {
    }
 }
 ```
-
+```
 A. 1
 B. 2
 C. 3
 D. 4
 E. 5
 F. 6
-
+```
 #### 5. 以下代码的输出结果是
 ```
 public class StaticDemo {
@@ -150,8 +155,226 @@ StaticDemo(int num1, int num2) {
   }
 }
 ```
+```
 A. 9 10 12 22
 B. 9 22 12 22
 C. 9 10 12 10
 D. 3 22 3 22
 E. 编译错误
+```
+
+#### 6. 以下代码的输出结果是
+```
+class Test1 { 
+    int x = 10; 
+public static void main(String[] args) 
+    { 
+        Test1 t1 = new Test1(); 
+        Test1 t2 = new Test1(); 
+        t1.x = 20; 
+        System.out.print(t1.x + " "); 
+        System.out.println(t2.x); 
+    } 
+} 
+```
+```
+A. 10 10
+B. 20 20
+C. 10 20
+D. 20 10
+```
+#### 7. 以下代码的输出结果是
+```
+class Test1 { 
+	static int i = 1; 
+public static void main(String[] args) 
+	{ 
+		for (int i = 1; i < 10; i++) { 
+			i = i + 2; 
+			System.out.print(i + " "); 
+		} 
+	} 
+} 
+```
+```
+A. 3 6 9
+B. 3 6 9 …. 27
+C. 编译错误
+D. 没有输出
+```
+#### 8. 以下代码的输出结果是
+```
+class Test1 { 
+    static int i = 1; 
+public static void main(String[] args) 
+    { 
+        int i = 1; 
+        for (Test1.i = 1; Test1.i < 10; Test1.i++) { 
+            i = i + 2; 
+            System.out.print(i + " "); 
+        } 
+    } 
+} 
+```
+```
+A. 1 3 9
+B. 1 2 3 … 9
+C. 3 5 7 9 11 13 15 17 19
+D. 无输出
+```
+#### 9. 以下代码的输出结果是
+```
+class Test1 { 
+    static int i = 1; 
+public static void main(String[] args) 
+    { 
+        static int i = 1; 
+        for (Test1.i = 1; Test1.i < 10; Test1.i++) { 
+            i = i + 2; 
+            System.out.print(i + " "); 
+        } 
+    } 
+} 
+```
+```
+A. 编译报错
+B. 1 3 9
+C. 3 5 7 9 11 13 15 17 19
+D. 1 2 3 … 9
+```
+#### 10. 以下代码的输出结果是
+
+```
+class Test1 { 
+public static void main(String[] args) 
+    { 
+        static int arr1[] = { 11, 22, 33 }; 
+        static int arr2[] = { 11, 22, 33, 44, 55 }; 
+        static int ptr[]; 
+        ptr = arr1; 
+        arr1 = arr2; 
+        arr2 = ptr; 
+        System.out.print(arr1.length + " "); 
+        System.out.println(arr2.length); 
+    } 
+} 
+```
+```
+A. 编译错误
+B. 5 5
+C. 5 3
+D. 3 5
+```
+#### 11. 以下代码的输出结果是
+
+```
+class Test1 { 
+public
+    static void main(String[] args) 
+    { 
+        int x = 20; 
+        System.out.println(x); 
+    } 
+    static
+    { 
+        int x = 10; 
+        System.out.print(x + " "); 
+    } 
+} 
+```
+```
+A. 10 20
+B. 20 10
+C. 10 10
+D. 20 20
+```
+#### 12. 以下代码的输出结果是
+```
+class Test1 { 
+    int x = 10; 
+public
+    static void main(String[] args) 
+    { 
+        System.out.println(x); 
+    } 
+    static
+    { 
+        System.out.print(x + " "); 
+    } 
+} 
+```
+```
+A. 10 10
+B. 编译错误
+C. 运行异常
+D. 无输出
+```
+#### 13. 以下代码的输出结果是
+```
+class Test1 { 
+    int x = 10; 
+public
+    static void main(String[] args) 
+    { 
+        Test1 t1 = new Test1(); 
+        System.out.println(t1.x); 
+    } 
+    static
+    { 
+        int x = 20; 
+        System.out.print(x + " "); 
+    } 
+} 
+```
+```
+A. 10 20
+B. 20 10
+C. 10 10
+D. 编译错误
+```
+#### 14. 以下代码的输出结果是
+
+```
+class Test1 { 
+    int x = 10; 
+public
+    static void main(String[] args) 
+    { 
+        System.out.println(Test1.x); 
+    } 
+    static
+    { 
+        int x = 20; 
+        System.out.print(x + " "); 
+    } 
+} 
+```
+```
+A. 10 10
+B. 20 20
+C. 20 10
+D. 编译错误
+```
+
+#### 15. 以下代码的输出结果是
+```
+class Test1 { 
+    static int x = 10; 
+public
+    static void main(String[] args) 
+    { 
+        Test1 t1 = new Test1(); 
+        Test1 t2 = new Test1(); 
+  
+        t1.x = 20; 
+        System.out.print(t1.x + " "); 
+        System.out.println(t2.x); 
+    } 
+} 
+```
+```
+A. 10 10
+B. 20 20
+C. 10 20
+D. 20 10
+```
