@@ -1,5 +1,6 @@
 ### 以下程序的输出结果是
-#### 1. 
+要加上注释说明程序运行结果的原因。题目先自己想答案，然后运行代码查看结果和自己想的是否一致，然后记录注释
+#### 例. 
 ```
 class A 
 { 
@@ -11,6 +12,7 @@ class A
 
 public class B extends A 
 { 
+    // 编译报错，因为类A中没有无参构造方法，子类构造方法中没有显式调用父类的构造方法
 	public B(String s) 
 	{ 
 		System.out.print("B"); 
@@ -23,7 +25,7 @@ public class B extends A
 } 
 ```
 
-#### 2. 
+#### 1. 
 
 ```
 class Base {
@@ -46,7 +48,7 @@ public class Main {
 }
 ```
 
-#### 3.
+#### 2.
 ```
 class A
 {
@@ -69,7 +71,7 @@ public class MainClass
 }
 ```
 
-#### 4.
+#### 3.
 ```
 class A
 {
@@ -101,7 +103,7 @@ public class MainClass
 }
 ```
 
-#### 5.
+#### 4.
 ```
 class A
 {
@@ -136,7 +138,7 @@ public class MainClass
 }
 ```
 
-#### 6. 
+#### 5. 
 
 ```
 class X
@@ -155,7 +157,7 @@ class Y extends X
     }
 }
 ```
-#### 7. 
+#### 6. 
 ```
 public class A
 {
@@ -169,7 +171,7 @@ public class A
     }
 }
 ```
-#### 8. 
+#### 7. 
 ```
 public class A
 {
@@ -184,7 +186,7 @@ class B extends A
  
 }
 ```
-#### 9. 
+#### 8. 
 ```
 public class A
 {
@@ -202,7 +204,7 @@ public class A
 }
 ```
 
-#### 10. 
+#### 9. 
 
 ```
 class M
@@ -233,7 +235,7 @@ public class MainClass
     }
 }
 ```
-#### 11. 
+#### 10. 
 ```
 class M
 {
@@ -269,7 +271,7 @@ public class MainClass
     }
 }
 ```
-#### 12. 
+#### 11. 
 ```
 class X
 {
@@ -284,7 +286,7 @@ class Y extends X
     }
 }
 ```
-#### 13. 
+#### 12. 
 ```
 class X
 {
@@ -318,7 +320,7 @@ public class MainClass
 }
 ```
 
-#### 14. 
+#### 13. 
 ```
 class A
 {
@@ -344,7 +346,7 @@ public class MainClass
 	}
 }
 ```
-#### 15. 
+#### 14. 
 ```
 class A
 {
@@ -386,7 +388,7 @@ public class MainClass
 }
 ```
 
-#### 16. 
+#### 15. 
 
 ```
 class A
@@ -420,7 +422,7 @@ public class MainClass
 }
 ```
 
-#### 17. 
+#### 16. 
 ```
 class One
 {
