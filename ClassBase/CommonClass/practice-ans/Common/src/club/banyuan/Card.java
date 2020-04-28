@@ -58,9 +58,9 @@ public class Card {
         Card[] cardArr = new Card[CARDS_TOTAL];
 
         int index = 0;
-        for (String value : PATTERN_VAL) {
-            for (String s : FACE_VAL) {
-                Card card = new Card(s, value);
+        for (int p = 0; p < PATTERN_VAL.length; p++) {
+            for (int f = 0; f < FACE_VAL.length; f++) {
+                Card card = new Card(FACE_VAL[f], PATTERN_VAL[p]);
                 cardArr[index++] = card;
             }
         }
