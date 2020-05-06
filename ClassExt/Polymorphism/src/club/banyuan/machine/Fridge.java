@@ -1,6 +1,7 @@
 package club.banyuan.machine;
 
 import club.banyuan.animal.Animal;
+import club.banyuan.animal.Elephant;
 
 public class Fridge {
 
@@ -17,12 +18,14 @@ public class Fridge {
     return animal;
   }
 
-  public void setAnimal(Animal animal) {
+  public boolean setAnimal(Animal animal) {
     if (this.animal == null) {
       this.animal = animal;
       animal.frozen();
+      return true;
     } else {
       System.out.println("冰箱已经满了");
+      return false;
     }
   }
 

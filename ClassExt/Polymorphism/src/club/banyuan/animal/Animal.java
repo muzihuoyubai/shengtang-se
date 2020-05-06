@@ -1,8 +1,18 @@
 package club.banyuan.animal;
 
-public class Animal {
+public abstract class Animal {
 
   private int heightInCM;
+
+  public Animal() {
+    // ((Elephant)this).elephantMethod();
+    System.out.println("Animal()");
+  }
+
+  public Animal(int heightInCM) {
+    this.heightInCM = heightInCM;
+    System.out.println("animal constructor");
+  }
 
   public int getHeightInCM() {
     return heightInCM;
@@ -12,7 +22,10 @@ public class Animal {
     this.heightInCM = heightInCM;
   }
 
-  public void frozen() {
-    System.out.println("animal frozen");
+  public abstract void frozen();
+
+
+  public static void main(String[] args) {
+    Elephant elephant = new Elephant();
   }
 }

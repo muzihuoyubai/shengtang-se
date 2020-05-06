@@ -6,6 +6,7 @@ public class Elephant extends Animal {
 
   public Elephant() {
     this(DEFAULT_HEIGHT);
+    System.out.println("Elephant()");
   }
 
   public Elephant(int heightInCM) {
@@ -24,5 +25,9 @@ public class Elephant extends Animal {
   @Override
   public void frozen() {
     System.out.println("Elephant frozen");
+  }
+
+  public void elephantMethod() {
+    System.out.println("elephantMethod");
   }
 }

@@ -3,6 +3,7 @@ package club.banyuan;
 import java.util.Scanner;
 
 public class Main {
+
   // TODO
   // 1. 如果用户随意输入内容，不满足条件的，提示用户重新输入
   // 2. 用户输入多少人参与猜拳（2~5人）提示，输入0退出程序
