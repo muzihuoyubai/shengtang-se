@@ -25,53 +25,8 @@ public class B extends A
 } 
 ```
 
-#### 1. 
 
-```
-class Base {
-    public void show() {
-       System.out.println("Base::show() called");
-    }
-}
-  
-class Derived extends Base {
-    public void show() {
-       System.out.println("Derived::show() called");
-    }
-}
-  
-public class Main {
-    public static void main(String[] args) {
-        Base b = new Derived();;
-        b.show();
-    }
-}
-```
-
-#### 2.
-```
-class A
-{
-    int i = 10;
-}
- 
-class B extends A
-{
-    int i = 20;
-}
- 
-public class MainClass
-{
-    public static void main(String[] args)
-    {
-        A a = new B();
- 
-        System.out.println(a.i);
-    }
-}
-```
-
-#### 3.
+#### 31.
 ```
 class A
 {
@@ -103,7 +58,7 @@ public class MainClass
 }
 ```
 
-#### 4.
+#### 2.
 ```
 class A
 {
@@ -138,8 +93,7 @@ public class MainClass
 }
 ```
 
-#### 5. 
-
+#### 3.
 ```
 class X
 {
@@ -157,7 +111,7 @@ class Y extends X
     }
 }
 ```
-#### 6. 
+#### 4. 
 ```
 public class A
 {
@@ -171,7 +125,7 @@ public class A
     }
 }
 ```
-#### 7. 
+#### 5. 
 ```
 public class A
 {
@@ -186,7 +140,7 @@ class B extends A
  
 }
 ```
-#### 8. 
+#### 6. 
 ```
 public class A
 {
@@ -204,7 +158,7 @@ public class A
 }
 ```
 
-#### 9. 
+#### 7. 
 
 ```
 class M
@@ -235,7 +189,7 @@ public class MainClass
     }
 }
 ```
-#### 10. 
+#### 8. 
 ```
 class M
 {
@@ -271,7 +225,7 @@ public class MainClass
     }
 }
 ```
-#### 11. 
+#### 9. 
 ```
 class X
 {
@@ -286,7 +240,7 @@ class Y extends X
     }
 }
 ```
-#### 12. 
+#### 10. 
 ```
 class X
 {
@@ -320,7 +274,7 @@ public class MainClass
 }
 ```
 
-#### 13. 
+#### 11. 
 ```
 class A
 {
@@ -346,7 +300,7 @@ public class MainClass
 	}
 }
 ```
-#### 14. 
+#### 12. 
 ```
 class A
 {
@@ -388,7 +342,7 @@ public class MainClass
 }
 ```
 
-#### 15. 
+#### 13. 
 
 ```
 class A
@@ -422,7 +376,7 @@ public class MainClass
 }
 ```
 
-#### 16. 
+#### 14. 
 ```
 class One
 {

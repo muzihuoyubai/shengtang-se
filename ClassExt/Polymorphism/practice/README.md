@@ -92,58 +92,49 @@ public class Main {
 ```
 
 #### 5.
+
+```
+class Base {
+    public void show() {
+       System.out.println("Base::show() called");
+    }
+}
+  
+class Derived extends Base {
+    public void show() {
+       System.out.println("Derived::show() called");
+    }
+}
+  
+public class Main {
+    public static void main(String[] args) {
+        Base b = new Derived();;
+        b.show();
+    }
+}
 ```
 
-public class NewClass { 
-	public static class superclass { 
-		static void print() 
-		{ 
-			System.out.println("print in superclass."); 
-		} 
-	} 
-	public static class subclass extends superclass { 
-		static void print() 
-		{ 
-			System.out.println("print in subclass."); 
-		} 
-	} 
-
-	public static void main(String[] args) 
-	{ 
-		superclass A = new superclass(); 
-		superclass B = new subclass(); 
-		A.print(); 
-		B.print(); 
-	} 
-} 
-```
 #### 6.
 ```
-
-public class NewClass { 
-	public static class superclass { 
-		void print() 
-		{ 
-			System.out.println("print in superclass."); 
-		} 
-	} 
-
-	public static class subclass extends superclass { 
-		@Override
-		void print() 
-		{ 
-			System.out.println("print in subclass."); 
-		} 
-	} 
-
-	public static void main(String[] args) 
-	{ 
-		superclass A = new superclass(); 
-		superclass B = new subclass(); 
-		A.print(); 
-		B.print(); 
-	} 
-} 
+class A
+{
+    int i = 10;
+}
+ 
+class B extends A
+{
+    int i = 20;
+}
+ 
+public class MainClass
+{
+    public static void main(String[] args)
+    {
+        A a = new B();
+ 
+        System.out.println(a.i);
+    }
+}
 ```
 
 #### 7.
