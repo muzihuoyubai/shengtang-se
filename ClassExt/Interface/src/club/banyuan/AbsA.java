@@ -2,7 +2,7 @@ package club.banyuan;
 
 public class AbsA {
 
-  public void interA() {
+   void interA() {
     System.out.println("AbsA default");
   }
 }
