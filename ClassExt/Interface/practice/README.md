@@ -76,6 +76,7 @@ class B implements A
     {
         i = 222;
     }
+}
 ```
 
 #### 4.以下内容是否编译通过，如果不能请指出错误原因
@@ -263,25 +264,7 @@ public class MainClass
 }
 ```
 
-#### 12.以下内容是否编译通过，如果不能请指出错误原因
-```
-interface A
-{
-    void methodA();
-}
- 
-class B implements A
-{
-    public void methodA()
-    {
-        interface C
-        {
-            int i = 123;
-        }
-    }
-}
-```
-#### 13.
+#### 11.
 ```
 interface One
 {
@@ -327,7 +310,7 @@ public class MainClass
 }
 
 ```
-#### 14.
+#### 12.
 ```
 interface X
 {
@@ -357,7 +340,7 @@ public class MainClass
     }
 }
 ```
-#### 15.
+#### 13.
 ```
 interface A
 {
@@ -416,24 +399,7 @@ public class MainClass
     }
 }
 ```
-#### 16.
-```
-interface One
-{
-    int i = 222;
-     
-    interface OneTwo
-    {
-        int i = One.i+One.i;
-         
-        interface OneTwoThree
-        {
-            int i = OneTwo.i + OneTwo.i;
-        }
-    }
-}
-```
-#### 17.
+#### 14.
 ```
 interface A
 {
@@ -491,7 +457,7 @@ public class MainClass
 }
 ```
 
-#### 18.
+#### 15.
 ```
 interface X
 {
@@ -511,7 +477,7 @@ class Z implements Y
     }
 }
 ```
-#### 19.
+#### 16.
 ```
 abstract class A
 {
@@ -555,7 +521,7 @@ public class MainClass
 }
 ```
 
-#### 20.
+#### 17.
 ```
 class A { }
  
