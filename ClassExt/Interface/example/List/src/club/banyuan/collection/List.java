@@ -1,6 +1,8 @@
-package club.banyuan;
+package club.banyuan.collection;
 
-public interface List {
+import club.banyuan.util.Iterable;
+
+public interface List extends Iterable {
 
   /**
    * 更新指定下标位置的元素
@@ -34,7 +36,7 @@ public interface List {
   Object remove(int index);
 
   /**
-   * 查找匹配的元素并删除
+   * 查找匹配的元素并删除，找到第一个元素删除即可
    *
    * @param o
    * @return true 被删除的元素存在，并且成功被移除

@@ -55,3 +55,54 @@ boolean isEmpty()
 */
 int size()
 ```
+
+
+### Map 接口
+
+```
+ /**
+     * @return Map中的键值对数量
+     */
+    int size();
+
+    /**
+     * @return true Map没有保存键值对
+     */
+    boolean isEmpty();
+
+    /**
+     * @return true Map中保存的键值对中包含了传入的键
+     */
+    boolean containsKey(Object key);
+
+    /**
+     * @return true Map中保存了键值对中包含了传入的值
+     */
+    boolean containsValue(Object value);
+
+    /**
+     * 根据传入的键查询值，如果查询不到，则返回null
+     */
+    Object get(Object key);
+
+
+    /**
+     * Associates the specified value with the specified key in this map
+     */
+    Object put(Object key, Object value);
+
+    /**
+     * Removes the mapping for a key from this map if it is present
+     */
+    Object remove(Object key);
+
+
+    void clear();
+
+    Set<K> keySet();
+
+    Collection<V> values();
+
+    Set<Map.Entry<K, V>> entrySet();
+
+```

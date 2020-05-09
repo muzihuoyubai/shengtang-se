@@ -1,4 +1,4 @@
-package club.banyuan;
+package club.banyuan.collection;
 
 public class Node {
 
