@@ -1,14 +1,11 @@
 package club.banyuan.queue;
 
 
-public class ArrayQueue implements Queue {
-
-  private static final int INIT_CAPACITY = 10;
-
-  private Object[] array = new Object[INIT_CAPACITY];
+public class ArrayQueue extends AbstractQueue {
 
   private int size;
 
+  @Override
   public void add(Object o) {
     if (size == array.length) {
       // 扩容
@@ -22,9 +19,9 @@ public class ArrayQueue implements Queue {
 
     array[size] = o;
     size++;
-
   }
 
+  @Override
   public Object delete() {
     if (isEmpty()) {
       return null;
@@ -43,5 +40,4 @@ public class ArrayQueue implements Queue {
   public boolean isEmpty() {
     return size == 0;
   }
-
 }

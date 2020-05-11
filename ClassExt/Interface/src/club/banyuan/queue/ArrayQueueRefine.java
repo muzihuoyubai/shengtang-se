@@ -1,11 +1,7 @@
 package club.banyuan.queue;
 
 
-public class ArrayQueueRefine implements Queue {
-
-  private static final int INIT_CAPACITY = 10;
-
-  private Object[] array = new Object[INIT_CAPACITY];
+public class ArrayQueueRefine extends AbstractQueue {
 
   // 出队列的元素下标
   private int first;
