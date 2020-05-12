@@ -1,4 +1,4 @@
-package club.banyuan;
+package club.banyuan.util.map;
 
 public interface Map {
 
@@ -37,4 +37,19 @@ public interface Map {
    * 移除key和保存的值
    */
   Object remove(Object key);
+
+  interface Entry {
+
+    Object getKey();
+
+    Object getValue();
+
+    void setValue(Object o);
+
+    void setKey(Object o);
+
+    boolean equals(Object o);
+
+    int hashCode();
+  }
 }

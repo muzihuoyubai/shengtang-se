@@ -11,6 +11,9 @@ package club.banyuan.pkgone;
 // 8. 非静态内部类中，是否可以定义静态的方法。
 // 内部类中不允许有静态的方法或静态成员变量
 
+import club.banyuan.Constant;
+import club.banyuan.Constant.Database;
+
 public class OuterClass {
  static String outerClassField = "outerClassField";
 
@@ -59,6 +62,7 @@ class Main {
     OuterClass outerClass = new OuterClass();
     // OuterClass.InnerClass innerClass = outerClass.new InnerClass();
     // System.out.println(innerClass);
+    // System.out.println(Database.URL_KEY);
 
 
   }

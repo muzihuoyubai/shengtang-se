@@ -1,16 +1,35 @@
 package club.banyuan;
 
-public class OuterClass {
+import java.util.HashMap;
+import java.util.Map;
+
+public class OuterClass implements OuterInterface {
 
   private int a;
-  private int outMethod(){
+
+  public int getA() {
+    return a;
+  }
+
+  public void setA(int a) {
+    this.a = a;
+  }
+
+  private int outMethod() {
     System.out.println(this);
     return a;
   }
 
-  public class InnerClass {
+  @Override
+  public void outerMethod() {
+
+  }
+
+  public class InnerClass implements OuterInterface.InnerInterface {
+
     private int a;
-    public void innerMethod(){
+
+    public void innerMethod() {
 
       System.out.println(this);
       System.out.println(OuterClass.this);
@@ -18,8 +37,13 @@ public class OuterClass {
     }
 
   }
+
   public static void main(String[] args) {
-    new OuterClass().new InnerClass().innerMethod();
+    OuterInterface.InnerInterface innerInterface = new OuterClass().new InnerClass();
+    OuterClass.InnerInterface inner = new OuterClass().new InnerClass();
+    // HashMap.Entry
+    // Map.Entry
+
   }
 
 }

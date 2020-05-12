@@ -1,8 +1,9 @@
-package club.banyuan;
+package club.banyuan.util.map;
 
 import club.banyuan.collection.ArrayList;
 import club.banyuan.collection.List;
 import club.banyuan.util.Iterator;
+import java.util.Objects;
 
 public class HashMap implements Map {
 
@@ -59,7 +60,7 @@ public class HashMap implements Map {
       return null;
     }
 
-    int hashCode = key.hashCode();
+    int hashCode = Math.abs(key.hashCode());
     List list = listArr[hashCode % INIT_LENGTH];
     if (list == null) {
       list = new ArrayList();
@@ -80,6 +81,60 @@ public class HashMap implements Map {
 
   @Override
   public Object remove(Object key) {
+    Object value = get(key);
+    Entry entry = new Entry(key, value);
+    for (List list : listArr) {
+      list.remove(entry);
+    }
     return null;
+  }
+
+  private static class Entry implements Map.Entry {
+
+    Object key;
+    Object value;
+
+    public Entry(Object key, Object value) {
+      this.key = key;
+      this.value = value;
+    }
+
+    @Override
+    public Object getKey() {
+      return key;
+    }
+
+    @Override
+    public Object getValue() {
+      return value;
+    }
+
+    @Override
+    public void setValue(Object o) {
+      this.value = o;
+    }
+
+    @Override
+    public void setKey(Object o) {
+      this.key = o;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
+      Entry entry = (Entry) o;
+      return Objects.equals(key, entry.key) &&
+          Objects.equals(value, entry.value);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(key, value);
+    }
   }
 }
