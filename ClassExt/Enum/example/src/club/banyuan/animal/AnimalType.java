@@ -1,17 +1,42 @@
 package club.banyuan.animal;
 
-public class AnimalType {
-
-  public static final AnimalType TIGER = new AnimalType("老虎");
-  public static final AnimalType LION = new AnimalType("狮子");
-  public static final AnimalType ELEPHANT = new AnimalType("大象");
+public enum AnimalType {
+  ELEPHANT("大象", 3),
+  LION("狮子", 2),
+  TIGER("老虎", 1);
 
   private final String typeName;
-  // TODO 对code进行初始化，1 表示老虎，2表示狮子，3表示大象
   private final int code;
 
-  private AnimalType(String typeName) {
+  AnimalType(String typeName, int code) {
     this.typeName = typeName;
+    this.code = code;
+  }
+
+  @Override
+  public String toString() {
+    return this.typeName;
+  }
+
+  public static AnimalType valueOfTypeName(String typeName) {
+    AnimalType[] values = values();
+
+    for (AnimalType one : values) {
+      if (one.typeName.equals(typeName)) {
+        return one;
+      }
+    }
+    return valueOf(typeName);
+  }
+
+  public static AnimalType valueOf(int code) {
+    AnimalType[] values = values();
+    for (AnimalType one : values) {
+      if (one.code == code) {
+        return one;
+      }
+    }
+    return null;
   }
 
   public String getTypeName() {
@@ -20,20 +45,5 @@ public class AnimalType {
 
   public int getCode() {
     return code;
-  }
-
-  // TODO
-  public static AnimalType valueOf(int code){
-    return null;
-  }
-
-  // TODO
-  public static AnimalType valueOf(String typeName) {
-    return null;
-  }
-
-  @Override
-  public String toString() {
-    return this.typeName;
   }
 }

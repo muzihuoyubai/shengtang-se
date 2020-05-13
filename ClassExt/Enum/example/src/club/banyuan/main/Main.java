@@ -43,7 +43,20 @@ public class Main {
     // System.out.println("动物类型是:" + animalType);
     // AnimalType.elephant = AnimalType.lion;
 
-    String lionStr = "狮子";
+    String lionStr = "LION";
     AnimalType lionType = AnimalType.valueOf(lionStr);
+    System.out.println(lionType.name());
+    System.out.println(lionType.ordinal());
+    System.out.println(AnimalType.ELEPHANT.ordinal());
+    System.out.println(AnimalType.valueOfTypeName("TIGER"));
+
+    System.out.println(AnimalType.ELEPHANT.equals(AnimalType.ELEPHANT));
+    System.out.println(AnimalType.ELEPHANT == AnimalType.ELEPHANT);
+    System.out.println(AnimalType.ELEPHANT.compareTo(AnimalType.ELEPHANT));
+    System.out.println(AnimalType.ELEPHANT.compareTo(AnimalType.LION));
+    System.out.println(AnimalType.ELEPHANT.compareTo(AnimalType.TIGER));
+    System.out.println(AnimalType.TIGER.compareTo(AnimalType.ELEPHANT));
+    // AnimalType.
+    // System.out.println(lionType.getCode());
   }
 }
