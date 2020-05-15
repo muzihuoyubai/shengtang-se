@@ -297,7 +297,7 @@ try {
     } 
 ```
 
-#### 11.
+#### 12.
 ```
 public class Test {
  
@@ -311,7 +311,6 @@ public class Test {
     }
  
     public static void test(int i) {
- 
         result += "1";
         try {
             if (i == 0) {
