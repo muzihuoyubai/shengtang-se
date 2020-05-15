@@ -1,5 +1,8 @@
 package club.banyuan;
 
+import club.banyuan.util.map.HashMap;
+import club.banyuan.util.map.Map;
+
 public class MapTest {
 
   public static void main(String[] args) {

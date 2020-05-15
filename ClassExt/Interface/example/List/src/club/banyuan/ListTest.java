@@ -2,6 +2,7 @@ package club.banyuan;
 
 import club.banyuan.collection.ArrayList;
 import club.banyuan.collection.List;
+import club.banyuan.util.Comparable;
 import club.banyuan.util.Iterator;
 
 public class ListTest {
@@ -54,7 +55,6 @@ public class ListTest {
     list.remove(2);
     list.remove(0);
     printList(list);
-
 
   }
 
