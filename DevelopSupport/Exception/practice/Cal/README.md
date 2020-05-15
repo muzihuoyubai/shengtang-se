@@ -62,7 +62,7 @@ Thanks!
 
 ```
 
- 应用依赖的异常类都是Exception的子类，仅需要提供构造方法不需要为异常类添加额外的功能。使用try / catch / finally块可以检查特定的异常。
+ 应用依赖的异常类都是CalculatorException的子类，
  通过创建新的Exception类型，我们使程序可以通过异常类传递更详细的错误信息。
  请构造了以下类：
  1. QuitException：当用户输入"quit"结束程序时抛出（不区分大小写）。 
