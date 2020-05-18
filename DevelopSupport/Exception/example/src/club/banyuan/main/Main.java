@@ -42,6 +42,8 @@ public class Main {
     } catch (GateException e) {
       System.out.println(e.getMessage());
       System.out.println("找人去修门");
+    } catch (Exception e) {
+      e.printStackTrace();
     }
 
     // finally {
