@@ -23,6 +23,11 @@ public class Box<AnyType> {
 
   public static void main(String[] args) {
     Box<Item> box = new Box<>();
+    Box<OtherItem> box1 = new Box<>();
+    Box<Integer> boxes = new Box<>();
+    // boxes.setAnyTypeItem(1);
+
+    // Box<int> box2 = new Box<>();
 
     // Box<Item> box1 = new Box();
 

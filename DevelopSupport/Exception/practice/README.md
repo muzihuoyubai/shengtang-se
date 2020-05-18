@@ -1,330 +1,57 @@
-#### 1.
+#### 编写一个用户注册和登录的功能
 ```
-class Main {
-   public static void main(String args[]) {
-      try {
-         throw 10;
-      }
-      catch(int e) {
-         System.out.println("Got the  Exception " + e);
-      }
-  }
-}
+1. 用户登录
+2. 用户注册
+0. 退出
 ```
 
-#### 2.
+1. 输入用户登录之后，根据提示分别输入用户名和密码
 ```
-class Test extends Exception { }
-  
-class Main {
-   public static void main(String args[]) { 
-      try {
-         throw new Test();
-      }
-      catch(Test t) {
-         System.out.println("Got the Test Exception");
-      }
-      finally {
-         System.out.println("Inside finally block ");
-      }
-  }
-}
+用户名：
+密码：
 ```
-#### 3.
+登录结果，如果是管理员账号，则显示管理员菜单列表
 ```
-class Main {
-   public static void main(String args[]) {
-      int x = 0;
-      int y = 10;
-      int z = y/x;
-  }
-}
-```
-#### 4.
-```
-class Base extends Exception {}
-class Derived extends Base  {}
- 
-public class Main {
-  public static void main(String args[]) {
-   // some other stuff
-   try {
-       // Some monitored code
-       throw new Derived();
-    }
-    catch(Base b)     { 
-       System.out.println("Caught base class exception"); 
-    }
-    catch(Derived d)  { 
-       System.out.println("Caught derived class exception"); 
-    }
-  }
-} 
-```
-#### 5.
-```
-class Test
-{
-    public static void main (String[] args)
-    {
-        try
-        {
-            int a = 0;
-            System.out.println ("a = " + a);
-            int b = 20 / a;
-            System.out.println ("b = " + b);
-        }
- 
-        catch(ArithmeticException e)
-        {
-            System.out.println ("Divide by zero error");
-        }
- 
-        finally
-        {
-            System.out.println ("inside the finally block");
-        }
-    }
-}
-```
-#### 6.
-```
-class Test
-{
-    public static void main(String[] args)
-    {
-        try
-        {
-            int a[]= {1, 2, 3, 4};
-            for (int i = 1; i <= 4; i++)
-            {
-                System.out.println ("a[" + i + "]=" + a[i] + "n");
-            }
-        }
-         
-        catch (Exception e)
-        {
-            System.out.println ("error = " + e);
-        }
-         
-        catch (ArrayIndexOutOfBoundsException e)
-        {
-            System.out.println ("ArrayIndexOutOfBoundsException");
-        }
-    }
-}
-```
-#### 7.
-```
-class Test
-{
-    String str = "a";
- 
-    void A()
-    {
-        try
-        {
-            str +="b";
-            B();
-        }
-        catch (Exception e)
-        {
-            str += "c";
-        }
-    }
- 
-    void B() throws Exception
-    {
-        try
-        {
-            str += "d";
-            C();
-        }
-        catch(Exception e)
-        {
-            throw new Exception();
-        }
-        finally
-        {
-            str += "e";
-        }
- 
-        str += "f";
- 
-    }
-     
-    void C() throws Exception
-    {
-        throw new Exception();
-    }
- 
-    void display()
-    {
-        System.out.println(str);
-    }
- 
-    public static void main(String[] args)
-    {
-        Test object = new Test();
-        object.A();
-        object.display();
-    }
- 
-}
-
-```
-#### 8.
-```
-class Test
-{   int count = 0;
- 
-    void A() throws Exception
-    {
-        try
-        {
-            count++;
-             
-            try
-            {
-                count++;
- 
-                try
-                {
-                    count++;
-                    throw new Exception();
- 
-                }
-                 
-                catch(Exception ex)
-                {
-                    count++;
-                    throw new Exception();
-                }
-            }
-             
-            catch(Exception ex)
-            {
-                count++;
-            }
-        }
-         
-        catch(Exception ex)
-        {
-            count++;
-        }
- 
-    }
- 
-    void display()
-    {
-        System.out.println(count);
-    }
- 
-    public static void main(String[] args) throws Exception
-    {
-        Test obj = new Test();
-        obj.A();
-        obj.display();
-    }
-}
+1. 显示用户信息
+2. 删除用户
+3. 变更管理员
+4. 修改密码
+0. 退出登录
 ```
 
-#### 9.方法返回值是
+a. 显示用户信息
+展示所有用户的登录账号和角色，例如
 ```
-public int myMethod(){
+zhangsan 管理员
+lisi 普通用户
+wangwu 普通用户
+zhaoliu 管理员
 
-  try {
-
-  return 1;
-
-  }
-
-  Catch (Exception e){
-
-  return 2;
-
-  }
-
-  finally{
-
-  return 3;
-
- }
-
-}
+1. 显示用户信息
+2. 删除用户
+3. 变更管理员
+4. 修改密码
+0. 退出登录
 ```
-#### 10.
+如上，展示用户信息之后，再次显示管理员菜单。
 
+b. 删除用户
+输入用户名 来删除用户
 ```
- try {
+删除的用户名:zhangsan
+删除用户成功！
 
-      File file = new File("filename.txt");
-
-      Scanner sc = new Scanner(file);
-
-      throw new IOException();
-    }
-
-    catch (FileNotFoundException e) {
-
-      System.out.println("FileNotFoundException called!!!");
-
-    }
-
-    catch (IOException e) {
-
-      System.out.println("IOException called!!!");
-
-    } 
-
+1. 显示用户信息
+2. 删除用户
+3. 变更管理员
+4. 修改密码
+0. 退出登录
 ```
-#### 11.
+如上，删除用户之后，显示管理员菜单。
 
+
+如果是普通用户账号，则显示
 ```
-try {
-
-      File file = new File("filename.txt");
-
-      Scanner sc = new Scanner(file);
-
-      throw new IOException();
-    }
-
-    catch (IOException e) {
-
-      System.out.println("IOException called!!!");
-
-    } 
+1. 修改密码
+0. 退出登录
 ```
-
-#### 12.
-```
-public class Test {
- 
-    private static String result = "";
- 
-    public static void main(String[] args) {
-        test(1);
-        result += "*";
-        test(0);
-        System.out.println(result);
-    }
- 
-    public static void test(int i) {
-        result += "1";
-        try {
-            if (i == 0) {
-                throw new RuntimeException("");
-            }
-            result += "2";
-        } catch (Exception e) {
-            result += "3";
-            return;
-        } finally {
-            result += "4";
-        }
-        result += "5";
-    }
-}
-```
-
