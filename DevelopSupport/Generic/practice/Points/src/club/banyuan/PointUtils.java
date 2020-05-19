@@ -10,7 +10,6 @@ public class PointUtils {
    * 返回具有最大Y值的点。如果存在多个这样的点，则只需选择一个即可。
    */
   public static Point highestPoint(List<Point> points) {
-    /* 这等效于实验室中提到的初始化步骤。 */
     Iterator<Point> pointIterator = points.iterator();
 
     // TODO 使用迭代器完成此方法!
