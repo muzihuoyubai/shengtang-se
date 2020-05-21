@@ -18,11 +18,13 @@ public class AnimalMonitorImpl implements AnimalMonitor {
     this.sightings = new ArrayList<>();
   }
 
+
   /**
    * 打印所有目击动物的详细信息。
    */
   @Override
   public void printList() {
+
   }
 
   /**
@@ -32,6 +34,7 @@ public class AnimalMonitorImpl implements AnimalMonitor {
    */
   @Override
   public void printSightingsOf(String animal) {
+
   }
 
   /**
@@ -41,6 +44,7 @@ public class AnimalMonitorImpl implements AnimalMonitor {
    */
   @Override
   public void printSightingsBy(int spotter) {
+
   }
 
   /**
@@ -50,8 +54,41 @@ public class AnimalMonitorImpl implements AnimalMonitor {
    * @param dangerThreshold 小于或等于此级别的动物总数被认为濒临灭绝的
    */
   @Override
-  public void printEndangered(ArrayList<String> animalNames,
-      int dangerThreshold) {
+  public void printEndangered(List<String> animalNames, int dangerThreshold) {
+
+  }
+
+  /**
+   * 打印在特定期间periodID内记录的所有目击事件的详细信息，并将其作为参数传递给该方法
+   *
+   * @param period 日期ID
+   * @return 指定日期的清单
+   */
+  @Override
+  public List<Sighting> printSightingsInPeriod(int period) {
+    return null;
+  }
+
+  /**
+   * 打印并返回指定日期区间内的清单
+   *
+   * @param fromPeriod 日期开始
+   * @param toPeriod   日期结束
+   * @param animal     动物类型
+   */
+  @Override
+  public List<Sighting> printSightingsOfInPeriod(int fromPeriod, int toPeriod, String animal) {
+    return null;
+  }
+
+  /**
+   * 打印特定动物类型的总的目击数量
+   *
+   * @param animal 动物类型
+   */
+  @Override
+  public List<Sighting> printCounts(String animal) {
+    return null;
   }
 
   /**
@@ -70,6 +107,7 @@ public class AnimalMonitorImpl implements AnimalMonitor {
    */
   @Override
   public void removeZeroCounts() {
+
   }
 
   /**
@@ -95,4 +133,23 @@ public class AnimalMonitorImpl implements AnimalMonitor {
     return null;
   }
 
+  /**
+   * @param spotter
+   * @param period
+   * @return 包含该观察者在特定日期看到的动物的名称，只包括数量大于零的动物
+   */
+  @Override
+  public List<String> getAnimalBy(int spotter, int period) {
+    return null;
+  }
+
+  /**
+   * @param animal
+   * @param period
+   * @return 在该特定日期看到该动物的观察者
+   */
+  @Override
+  public List<Integer> getSpotterBy(String animal, int period) {
+    return null;
+  }
 }
