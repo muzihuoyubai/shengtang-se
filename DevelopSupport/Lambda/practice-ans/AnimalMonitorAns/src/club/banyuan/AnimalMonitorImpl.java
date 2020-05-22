@@ -194,6 +194,6 @@ public class AnimalMonitorImpl implements AnimalMonitor {
   public List<Integer> getSpotterBy(String animal, int period) {
     return sightings.stream()
         .filter(t -> t.getPeriod() == period && t.getAnimal().equals(animal))
-        .map(Sighting::getSpotter).collect(Collectors.toList());
+        .map(Sighting::getSpotter).distinct().collect(Collectors.toList());
   }
 }
