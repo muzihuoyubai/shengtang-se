@@ -3,7 +3,8 @@ package club.banyuan.animal;
 public enum AnimalType {
   ELEPHANT("大象", 3),
   LION("狮子", 2),
-  TIGER("老虎", 1);
+  TIGER("老虎", 1),
+  ;
 
   private final String typeName;
   private final int code;
