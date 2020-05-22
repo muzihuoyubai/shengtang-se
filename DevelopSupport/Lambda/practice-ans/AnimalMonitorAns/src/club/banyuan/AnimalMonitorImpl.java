@@ -1,8 +1,9 @@
 package club.banyuan;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 监视不同种类动物的数量。由观察者记录目击事件。
@@ -10,23 +11,31 @@ import java.util.List;
 public class AnimalMonitorImpl implements AnimalMonitor {
 
   // 记录所有发现的动物。
-  private ArrayList<Sighting> sightings;
+  private List<Sighting> sightings;
 
   /**
    * 创建一个AnimalMonitor。
    */
   public AnimalMonitorImpl() {
-    this.sightings = new ArrayList<>();
+    this.sightings = new SightingFiller().getSightings();
   }
+
 
   /**
    * 打印所有目击动物的详细信息。
    */
   @Override
   public void printList() {
-    for (Sighting record : sightings) {
-      System.out.println(record.getDetails());
+    for (Sighting sighting : sightings) {
+      printSighting(sighting);
     }
+    sightings.forEach(t -> System.out.println(t.getDetails()));
+    sightings.forEach(this::printSighting);
+    sightings.forEach(Sighting::getAnimal);
+  }
+
+  private void printSighting(Sighting sighting) {
+    System.out.println(sighting.getDetails());
   }
 
   /**
@@ -36,11 +45,18 @@ public class AnimalMonitorImpl implements AnimalMonitor {
    */
   @Override
   public void printSightingsOf(String animal) {
-    for (Sighting record : sightings) {
-      if (animal.equals(record.getAnimal())) {
-        System.out.println(record.getDetails());
+    List<Sighting> matches = new ArrayList<>();
+    for (Sighting sighting : sightings) {
+      if (sighting.getAnimal().equals(animal)) {
+        matches.add(sighting);
       }
     }
+
+    matches.forEach(this::printSighting);
+
+    sightings.stream()
+        .filter(abc -> abc.getAnimal().equals(animal))
+        .forEach(this::printSighting);
   }
 
   /**
@@ -50,11 +66,9 @@ public class AnimalMonitorImpl implements AnimalMonitor {
    */
   @Override
   public void printSightingsBy(int spotter) {
-    for (Sighting record : sightings) {
-      if (record.getSpotter() == spotter) {
-        System.out.println(record.getDetails());
-      }
-    }
+    sightings.stream()
+        .filter(t -> t.getSpotter() == spotter)
+        .forEach(this::printSighting);
   }
 
   /**
@@ -64,13 +78,53 @@ public class AnimalMonitorImpl implements AnimalMonitor {
    * @param dangerThreshold 小于或等于此级别的动物总数被认为濒临灭绝的
    */
   @Override
-  public void printEndangered(ArrayList<String> animalNames,
-      int dangerThreshold) {
-    for (String animal : animalNames) {
-      if (getCount(animal) <= dangerThreshold) {
-        System.out.println(animal + "濒临灭绝");
-      }
-    }
+  public void printEndangered(List<String> animalNames, int dangerThreshold) {
+    sightings.stream()
+        .collect(Collectors
+            .groupingBy(Sighting::getAnimal, Collectors.summingInt(Sighting::getCount)))
+        .forEach((k, v) -> {
+          if (v <= dangerThreshold && animalNames.contains(k)) {
+            System.out.println("濒临灭绝的动物:" + k);
+          }
+        });
+  }
+
+  /**
+   * 打印在特定期间periodID内记录的所有目击事件的详细信息，并将其作为参数传递给该方法
+   *
+   * @param period 日期ID
+   * @return 指定日期的清单
+   */
+  @Override
+  public List<Sighting> printSightingsInPeriod(int period) {
+    return sightings.stream().filter(t -> t.getPeriod() == period).collect(Collectors.toList());
+  }
+
+  /**
+   * 打印并返回指定日期区间内的清单
+   *
+   * @param fromPeriod 日期开始
+   * @param toPeriod   日期结束
+   * @param animal     动物类型
+   */
+  @Override
+  public List<Sighting> printSightingsOfInPeriod(int fromPeriod, int toPeriod, String animal) {
+    return sightings.stream().filter(
+        t -> t.getPeriod() >= fromPeriod && t.getPeriod() <= toPeriod && t.getAnimal()
+            .equals(animal)).collect(
+        Collectors.toList());
+  }
+
+  /**
+   * 打印特定动物类型的总的目击数量
+   *
+   * @param animal 动物类型
+   */
+  @Override
+  public List<Sighting> printCounts(String animal) {
+    Map<String, List<Sighting>> collect = sightings.stream()
+        .collect(Collectors.groupingBy(Sighting::getAnimal));
+    return collect.get(animal);
   }
 
   /**
@@ -81,13 +135,8 @@ public class AnimalMonitorImpl implements AnimalMonitor {
    */
   @Override
   public int getCount(String animal) {
-    int total = 0;
-    for (Sighting sighting : sightings) {
-      if (animal.equals(sighting.getAnimal())) {
-        total = total + sighting.getCount();
-      }
-    }
-    return total;
+    return sightings.stream().filter(t -> t.getAnimal().equals(animal)).mapToInt(Sighting::getCount)
+        .sum();
   }
 
   /**
@@ -95,13 +144,7 @@ public class AnimalMonitorImpl implements AnimalMonitor {
    */
   @Override
   public void removeZeroCounts() {
-    Iterator<Sighting> it = sightings.iterator();
-    while (it.hasNext()) {
-      Sighting record = it.next();
-      if (record.getCount() == 0) {
-        it.remove();
-      }
-    }
+    sightings.removeIf(t -> t.getCount() == 0);
   }
 
   /**
@@ -113,15 +156,9 @@ public class AnimalMonitorImpl implements AnimalMonitor {
    */
   @Override
   public List<Sighting> getSightingsInArea(String animal, int area) {
-    ArrayList<Sighting> records = new ArrayList<>();
-    for (Sighting record : sightings) {
-      if (animal.equals(record.getAnimal())) {
-        if (record.getArea() == area) {
-          records.add(record);
-        }
-      }
-    }
-    return records;
+    return sightings.stream().filter(t -> t.getAnimal().equals(animal) && t.getArea() == area)
+        .collect(
+            Collectors.toList());
   }
 
   /**
@@ -132,13 +169,31 @@ public class AnimalMonitorImpl implements AnimalMonitor {
    */
   @Override
   public List<Sighting> getSightingsOf(String animal) {
-    ArrayList<Sighting> filtered = new ArrayList<>();
-    for (Sighting record : sightings) {
-      if (animal.equals(record.getAnimal())) {
-        filtered.add(record);
-      }
-    }
-    return filtered;
+    return sightings.stream().filter(t -> t.getAnimal().equals(animal))
+        .collect(Collectors.toList());
   }
 
+  /**
+   * @param spotter
+   * @param period
+   * @return 包含该观察者在特定日期看到的动物的名称，只包括数量大于零的动物
+   */
+  @Override
+  public List<String> getAnimalBy(int spotter, int period) {
+    return sightings.stream().filter(t -> t.getSpotter() == spotter && t.getPeriod() == period)
+        .map(Sighting::getAnimal).collect(
+            Collectors.toList());
+  }
+
+  /**
+   * @param animal
+   * @param period
+   * @return 在该特定日期看到该动物的观察者
+   */
+  @Override
+  public List<Integer> getSpotterBy(String animal, int period) {
+    return sightings.stream()
+        .filter(t -> t.getPeriod() == period && t.getAnimal().equals(animal))
+        .map(Sighting::getSpotter).collect(Collectors.toList());
+  }
 }
