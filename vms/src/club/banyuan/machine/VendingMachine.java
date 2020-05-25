@@ -2,6 +2,9 @@ package club.banyuan.machine;
 
 import static club.banyuan.machine.FlowStatus.*;
 
+import club.banyuan.menu.Menu;
+import club.banyuan.menu.MenuNode;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -18,6 +21,8 @@ public class VendingMachine {
   public static final String PRODUCT_DEFAULT = " ";
   public static final int FULL_INVENTORY = 10;
 
+
+  private Menu menu;
   private static final int password = 1110;
 
   private int userAmount;
@@ -466,4 +471,18 @@ public class VendingMachine {
     // return rlt;
   }
 
+
+  // public void initMenu() {
+  //   menu = new Menu();
+  //   MenuNode menuNode = new MenuNode();
+  //   menu.setRoot(menuNode);
+  //   List<MenuNode> subMenu = new ArrayList<>();
+  //   subMenu.add(new MenuNode());
+  //   subMenu.add(new MenuNode());
+  //   subMenu.add(new MenuNode());
+  //   subMenu.add(new MenuNode());
+  //   menuNode.setSubMenus(subMenu);
+  //
+  //   subMenu.get(1).setSubMenus();
+  // }
 }
