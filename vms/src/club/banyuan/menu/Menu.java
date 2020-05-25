@@ -10,7 +10,6 @@ public class Menu {
 
   private MenuNode root;
   private MenuNode curNode;
-  private String userInput;
   private final List<MenuNode> allNodes = new ArrayList<>();
 
   public Menu(List<MenuNode> allNodes) {
@@ -60,29 +59,33 @@ public class Menu {
 
   public void display() {
     System.out.println(curNode.getTitle());
-    for (MenuNode subMenu : curNode.getSubMenus()) {
-      System.out.println(subMenu.getDesc());
+    if (curNode.getSubMenus() != null) {
+      for (MenuNode subMenu : curNode.getSubMenus()) {
+        System.out.println(subMenu.getDesc());
+      }
     }
   }
 
   public MenuNode scanUserInput() {
     Scanner scanner = new Scanner(System.in);
+    System.out.println();
     System.out.print("Your choice: ");
     String userInput = scanner.next();
     Optional<MenuNode> selectNode = curNode.getSubMenus().stream()
         .filter(t -> t.getInputMatches().equals(userInput)).findFirst();
 
     if (selectNode.isPresent()) {
-      this.userInput = userInput;
       return selectNode.get();
     } else {
       System.out.println("Invalid choice!");
+      System.out.println();
       display();
       return scanUserInput();
     }
   }
 
   public FlowStatus toNextMenu(MenuNode menuNode) {
+
     Optional<MenuNode> nextMenu = allNodes.stream().filter(t -> t == menuNode).findFirst();
     if (nextMenu.isPresent()) {
       curNode = menuNode;
@@ -90,5 +93,26 @@ public class Menu {
     } else {
       throw new IllegalArgumentException("节点不存在:" + menuNode);
     }
+  }
+
+  public MenuNode toNextMenu() {
+    curNode = curNode.getSubMenus().get(0);
+    return curNode;
+  }
+
+  public MenuNode back() {
+    curNode = curNode.getParentNode();
+    return curNode;
+  }
+
+  public void toNextMenu(FlowStatus flowStatus) {
+    Optional<MenuNode> menuNode = allNodes.stream().filter(t -> t.getFlowStatus() == flowStatus)
+        .findFirst();
+    if (menuNode.isPresent()) {
+      curNode = menuNode.get();
+    } else {
+      throw new IllegalArgumentException("不存在的流程:" + flowStatus);
+    }
+
   }
 }
