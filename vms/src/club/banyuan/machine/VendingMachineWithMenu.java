@@ -1,11 +1,9 @@
 package club.banyuan.machine;
 
-import static club.banyuan.machine.FlowStatus.ADMIN_ROOT;
-import static club.banyuan.machine.FlowStatus.INSERT_COIN;
-import static club.banyuan.machine.FlowStatus.PRESS_PRODUCT_BTN;
-import static club.banyuan.machine.FlowStatus.ROOT;
+import static club.banyuan.machine.FlowStatus.*;
 
 import club.banyuan.menu.Menu;
+import club.banyuan.menu.MenuFlow;
 import club.banyuan.menu.MenuNode;
 import club.banyuan.menu.MenuType;
 import java.util.Arrays;
@@ -14,8 +12,7 @@ import java.util.Scanner;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-
-public class VendingMachineRefine {
+public class VendingMachineWithMenu implements MenuFlow<FlowStatus> {
 
   public static final int SHELVES_NUM = 5;
   public static final String NO_PURCHASE = "=";
@@ -25,7 +22,7 @@ public class VendingMachineRefine {
   public static final int FULL_INVENTORY = 10;
 
 
-  private final Menu menu;
+  private Menu<FlowStatus> menu;
   private static final int password = 1110;
 
   private int userAmount;
@@ -35,64 +32,79 @@ public class VendingMachineRefine {
 
   private FlowStatus flowStatus = ROOT;
 
-  {
-    /*
-    初始化产品列表
-    A. Juice ($10) (5 left)
-    B. Cola($6)(1left)
-    C. Tea ($5) (2 left)
-    D. Water ($8) (1 left)
-    E. Coffee ($7) (9 left)
-     */
+  /*
+   * 构造代码块
+   * 在创建对象的时候进行初始化动作。
+   */ {
+    initShelves();
+    initMenu();
+  }
+
+  private void initShelves() {
+  /*
+  初始化产品列表
+  A. Juice ($10) (5 left)
+  B. Cola($6)(1left)
+  C. Tea ($5) (2 left)
+  D. Water ($8) (1 left)
+  E. Coffee ($7) (9 left)
+   */
     shelves[0] = new Shelf("A", "Juice", 10, 5);
     shelves[1] = new Shelf("B", "Cola", 6, 1);
     shelves[2] = new Shelf("C", "Tea", 5, 2);
     shelves[3] = new Shelf("D", "Water", 8, 1);
     shelves[4] = new Shelf("E", "Coffee", 7, 9);
+  }
 
-    List<MenuNode> list = Arrays.asList(
-        new MenuNode(null, null, "What would you like to do?", FlowStatus.ROOT, null,
+  private void initMenu() {
+  /*
+  初始化菜单
+   */
+
+    List<MenuNode<FlowStatus>> list = Arrays.asList(
+        new MenuNode<>(null, null, "What would you like to do?", ROOT, null,
             MenuType.ROOT),
-        new MenuNode(" 1. Read product information", "1", "(1) The displayed products are:",
-            FlowStatus.READ_PRODUCT_INFO, FlowStatus.ROOT, MenuType.SINGLE),
-        new MenuNode(" 2. Insert coin", "2", "(2) Which coin would you like to insert?",
-            FlowStatus.INSERT_COIN, FlowStatus.ROOT, MenuType.PARENT),
+        new MenuNode<>(" 1. Read product information", "1", "(1) The displayed products are:",
+            READ_PRODUCT_INFO, ROOT, MenuType.SINGLE),
+        new MenuNode<>(" 2. Insert coin", "2", "(2) Which coin would you like to insert?",
+            INSERT_COIN, ROOT, MenuType.PARENT),
 
-        new MenuNode(" 1. $1", "1", null,
-            null, FlowStatus.INSERT_COIN, MenuType.SINGLE),
-        new MenuNode(" 2. $2", "2", null,
-            null, FlowStatus.INSERT_COIN, MenuType.SINGLE),
-        new MenuNode(" 3. $5", "3", null,
-            null, FlowStatus.INSERT_COIN, MenuType.SINGLE),
-        new MenuNode(" 4. $10", "4", null,
-            null, FlowStatus.INSERT_COIN, MenuType.SINGLE),
-        new MenuNode(" 0. Go back", "0", null,
-            null, FlowStatus.INSERT_COIN, MenuType.GO_BACK),
+        new MenuNode<>(" 1. $1", "1", null,
+            null, INSERT_COIN, MenuType.SINGLE),
+        new MenuNode<>(" 2. $2", "2", null,
+            null, INSERT_COIN, MenuType.SINGLE),
+        new MenuNode<>(" 3. $5", "3", null,
+            null, INSERT_COIN, MenuType.SINGLE),
+        new MenuNode<>(" 4. $10", "4", null,
+            null, INSERT_COIN, MenuType.SINGLE),
+        new MenuNode<>(" 0. Go back", "0", null,
+            null, INSERT_COIN, MenuType.GO_BACK),
 
-        new MenuNode(" 3. Press product button", "3",
+        new MenuNode<>(" 3. Press product button", "3",
             "(3) Which product button would you like to press?",
-            FlowStatus.PRESS_PRODUCT_BTN, FlowStatus.ROOT, MenuType.SINGLE),
-        new MenuNode(" 4. Press return button", "4", "(4) Return button is pressed.",
-            FlowStatus.PRESS_RETURN_BTN, FlowStatus.ROOT, MenuType.SINGLE),
+            PRESS_PRODUCT_BTN, ROOT, MenuType.SINGLE),
+        new MenuNode<>(" 4. Press return button", "4", "(4) Return button is pressed.",
+            PRESS_RETURN_BTN, ROOT, MenuType.SINGLE),
 
-        new MenuNode(" 9. Open service menu (code required)", "9", null,
-            FlowStatus.OPEN_SERVICE_MENU, FlowStatus.ROOT, MenuType.PARENT),
-        new MenuNode(null, null, "(9) What would you like to do?",
-            ADMIN_ROOT, FlowStatus.OPEN_SERVICE_MENU, MenuType.PARENT),
-        new MenuNode(" 1. Inspect machine status", "1", "(9-1) Machine status",
-            FlowStatus.ADMIN_INSPECT_STATUS, FlowStatus.ADMIN_ROOT, MenuType.SINGLE),
-        new MenuNode(" 2. Withdraw all money", "2", "(9-2) All money is being withdrawn.",
-            FlowStatus.ADMIN_WITHDRAW_MONEY, FlowStatus.ADMIN_ROOT, MenuType.SINGLE),
-        new MenuNode(" 3. Refill product", "3", "(9-3) Which product would you like to refill?",
-            FlowStatus.ADMIN_REFILL_PRODUCT, FlowStatus.ADMIN_ROOT, MenuType.SINGLE),
-        new MenuNode(" 4. Change product", "4", "(9-4) Which product would you like to change?",
-            FlowStatus.ADMIN_CHANGE_PRODUCT, FlowStatus.ADMIN_ROOT, MenuType.SINGLE),
-        new MenuNode(" 0. Go back", "0", null,
-            null, FlowStatus.ADMIN_ROOT, MenuType.GO_BACK),
+        new MenuNode<>(" 9. Open service menu (code required)", "9", null,
+            OPEN_SERVICE_MENU, ROOT, MenuType.PARENT),
+        new MenuNode<>(null, null, "(9) What would you like to do?",
+            ADMIN_ROOT, OPEN_SERVICE_MENU, MenuType.PARENT),
+        new MenuNode<>(" 1. Inspect machine status", "1", "(9-1) Machine status",
+            ADMIN_INSPECT_STATUS, ADMIN_ROOT, MenuType.SINGLE),
+        new MenuNode<>(" 2. Withdraw all money", "2", "(9-2) All money is being withdrawn.",
+            ADMIN_WITHDRAW_MONEY, ADMIN_ROOT, MenuType.SINGLE),
+        new MenuNode<>(" 3. Refill product", "3", "(9-3) Which product would you like to refill?",
+            ADMIN_REFILL_PRODUCT, ADMIN_ROOT, MenuType.SINGLE),
+        new MenuNode<>(" 4. Change product", "4", "(9-4) Which product would you like to change?",
+            ADMIN_CHANGE_PRODUCT, ADMIN_ROOT, MenuType.SINGLE),
+        new MenuNode<>(" 0. Go back", "0", null,
+            null, ADMIN_ROOT, MenuType.GO_BACK),
 
-        new MenuNode(" 0. Quit", "0", null,
-            FlowStatus.QUIT, FlowStatus.ROOT, MenuType.SINGLE));
-    menu = new Menu(list);
+        new MenuNode<>(" 0. Quit", "0", null,
+            QUIT, ROOT, MenuType.SINGLE));
+    menu = new Menu<>(list);
+    menu.setMenuFlow(this);
   }
 
 
@@ -102,6 +114,7 @@ public class VendingMachineRefine {
     buildShelvesDisplay(stringBuilder);
     buildBottomDisplay(stringBuilder);
     System.out.println(stringBuilder.toString());
+    System.out.println();
   }
 
   private void buildBottomDisplay(StringBuilder stringBuilder) {
@@ -153,21 +166,21 @@ public class VendingMachineRefine {
   public void start() {
     displayShelves();
     String userInput;
-    MenuNode menuNode;
+    MenuNode<FlowStatus> menuNode;
     while (true) {
       switch (flowStatus) {
         case ROOT:
           System.out.println();
           menu.display();
           menuNode = menu.scanUserInput();
-          menu.toNextMenu(menuNode);
-          flowStatus = menuNode.getFlowStatus();
+          flowStatus = changeMenuFromRoot(menuNode.getInputMatches());
+          menu.toNextMenu(flowStatus);
           break;
         case READ_PRODUCT_INFO:
           System.out.println();
           menu.display();
           displayProductInfo();
-          flowStatus = menu.back().getFlowStatus();
+          menu.back();
           break;
         case INSERT_COIN:
           System.out.println();
@@ -177,23 +190,19 @@ public class VendingMachineRefine {
           menu.toNextMenu(flowStatus);
           break;
         case PRESS_PRODUCT_BTN:
-          System.out.println();
-          displayShelves();
-          System.out.println();
-          menu.display();
-          displayShelvesAsMenu();
-          userInput = scanUserInput(getInputPredicate(shelves.length), t -> {
-            displayShelves();
-            menu.display();
-            displayShelvesAsMenu();
-          });
+          displayShelvesMenuForPressBtn();
+          userInput = scanUserInput(
+              getInputPredicate(shelves.length),
+              t -> displayShelvesMenuForPressBtn()
+          );
           flowStatus = changeMenuFromPressProductBtn(userInput);
           menu.toNextMenu(flowStatus);
           break;
         case PRESS_RETURN_BTN:
+          menu.display();
           returnUserAmount();
           displayShelves();
-          flowStatus = menu.back().getFlowStatus();
+          menu.back();
           break;
         case OPEN_SERVICE_MENU:
           flowStatus = authentication();
@@ -205,23 +214,18 @@ public class VendingMachineRefine {
         case ADMIN_ROOT:
           menu.display();
           menuNode = menu.scanUserInput();
-          // go back 需要跳到上级的上级菜单
-          if (menuNode.getMenuType() == MenuType.GO_BACK) {
-            menu.toNextMenu(ROOT);
-          } else {
-            menu.toNextMenu(menuNode);
-          }
-          flowStatus = menu.getCurNode().getFlowStatus();
+          flowStatus = changeMenuFromAdminRoot(menuNode.getInputMatches());
+          menu.toNextMenu(flowStatus);
           break;
         case ADMIN_INSPECT_STATUS:
           menu.display();
           displayMachineStatus();
-          flowStatus = menu.back().getFlowStatus();
+          menu.back();
           break;
         case ADMIN_WITHDRAW_MONEY:
           menu.display();
           withdrawMoney();
-          flowStatus = menu.back().getFlowStatus();
+          menu.back();
           break;
         case ADMIN_REFILL_PRODUCT:
           menu.display();
@@ -231,25 +235,28 @@ public class VendingMachineRefine {
             displayShelvesAsMenu();
           });
           refillProduct(userInput);
-          flowStatus = menu.back().getFlowStatus();
+          menu.back();
           break;
         case ADMIN_CHANGE_PRODUCT:
-          menu.display();
           displayShelvesAsMenu();
           userInput = scanUserInput(getInputPredicate(shelves.length),
               t -> {
-                menu.display();
                 displayShelvesAsMenu();
               });
           changeProduct(userInput);
-          flowStatus = menu.back().getFlowStatus();
+          menu.back();
           break;
         case QUIT:
           System.exit(0);
       }
     }
+  }
 
-
+  private void displayShelvesMenuForPressBtn() {
+    System.out.println();
+    displayShelves();
+    System.out.println();
+    displayShelvesAsMenu();
   }
 
   private void changeProduct(String userInput) {
@@ -286,6 +293,7 @@ public class VendingMachineRefine {
   }
 
   private void displayShelvesAsMenu() {
+    menu.display();
     for (int i = 0; i < shelves.length; i++) {
       System.out.printf("%d. %s\n", i + 1, shelves[i].getCode());
     }
@@ -319,6 +327,22 @@ public class VendingMachineRefine {
     System.out.println();
   }
 
+  private FlowStatus changeMenuFromAdminRoot(String userInput) {
+    switch (userInput) {
+      case "1":
+        return ADMIN_INSPECT_STATUS;
+      case "2":
+        return ADMIN_WITHDRAW_MONEY;
+      case "3":
+        return ADMIN_REFILL_PRODUCT;
+      case "4":
+        return ADMIN_CHANGE_PRODUCT;
+      case "0":
+        return ROOT;
+    }
+    throw new VendingMachineException("user input invalid:" + userInput);
+  }
+
   private FlowStatus authentication() {
     System.out.println("(9) Opening service menu. Access code is required.");
     System.out.print("Enter access code:");
@@ -339,7 +363,6 @@ public class VendingMachineRefine {
   }
 
   private void returnUserAmount() {
-    System.out.println("(4) Return button is pressed.");
     System.out.printf("$%s has been returned.\n", userAmount);
     System.out.println();
     userAmount = 0;
@@ -415,6 +438,7 @@ public class VendingMachineRefine {
     return INSERT_COIN;
   }
 
+
   /**
    * (1) The displayed products are:
    * A. Juice ($10)
@@ -427,7 +451,28 @@ public class VendingMachineRefine {
     for (Shelf shelf : shelves) {
       System.out.printf("%s. %s ($%s)\n", shelf.getCode(), shelf.getName(), shelf.getPrice());
     }
+    System.out.println();
   }
+
+  private FlowStatus changeMenuFromRoot(String userInput) {
+    switch (userInput) {
+      case "1":
+        return READ_PRODUCT_INFO;
+      case "2":
+        return INSERT_COIN;
+      case "3":
+        return PRESS_PRODUCT_BTN;
+      case "4":
+        return PRESS_RETURN_BTN;
+      case "9":
+        return OPEN_SERVICE_MENU;
+      case "0":
+        return QUIT;
+      default:
+        throw new VendingMachineException("user input invalid:" + userInput);
+    }
+  }
+
 
   private String scanUserInput(Predicate<String> inputValidate,
       Consumer<String> displayDuringInputWrong) {
@@ -445,6 +490,11 @@ public class VendingMachineRefine {
       userInput = scanUserInput(inputValidate, displayDuringInputWrong);
     }
     return userInput;
+  }
+
+  @Override
+  public void setFlowStatus(FlowStatus flowStatus) {
+    this.flowStatus = flowStatus;
   }
 
 }

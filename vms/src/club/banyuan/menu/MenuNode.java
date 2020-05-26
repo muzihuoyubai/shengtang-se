@@ -1,22 +1,21 @@
 package club.banyuan.menu;
 
-import club.banyuan.machine.FlowStatus;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuNode {
+public class MenuNode<T extends Enum<T>> {
 
   private String title;
   private String inputMatches;
   private String desc;
-  private FlowStatus flowStatus;
-  private FlowStatus parentStatus;
+  private T flowStatus;
+  private T parentStatus;
   private MenuType menuType;
-  private MenuNode parentNode;
-  private List<MenuNode> subMenus;
+  private MenuNode<T> parentNode;
+  private List<MenuNode<T>> subMenus;
 
   public MenuNode(String desc, String inputMatches, String title,
-      FlowStatus flowStatus, FlowStatus parentStatus, MenuType menuType) {
+      T flowStatus, T parentStatus, MenuType menuType) {
     this.title = title;
     this.inputMatches = inputMatches;
     this.desc = desc;
@@ -49,27 +48,27 @@ public class MenuNode {
     this.desc = desc;
   }
 
-  public List<MenuNode> getSubMenus() {
+  public List<MenuNode<T>> getSubMenus() {
     return subMenus;
   }
 
-  public void setSubMenus(List<MenuNode> subMenus) {
+  public void setSubMenus(List<MenuNode<T>> subMenus) {
     this.subMenus = subMenus;
   }
 
-  public FlowStatus getFlowStatus() {
+  public T getFlowStatus() {
     return flowStatus;
   }
 
-  public void setFlowStatus(FlowStatus flowStatus) {
+  public void setFlowStatus(T flowStatus) {
     this.flowStatus = flowStatus;
   }
 
-  public FlowStatus getParentStatus() {
+  public T getParentStatus() {
     return parentStatus;
   }
 
-  public void setParentStatus(FlowStatus parentStatus) {
+  public void setParentStatus(T parentStatus) {
     this.parentStatus = parentStatus;
   }
 
@@ -81,15 +80,15 @@ public class MenuNode {
     this.menuType = menuType;
   }
 
-  public MenuNode getParentNode() {
+  public MenuNode<T> getParentNode() {
     return parentNode;
   }
 
-  public void setParentNode(MenuNode parentNode) {
+  public void setParentNode(MenuNode<T> parentNode) {
     this.parentNode = parentNode;
   }
 
-  public void addSubMenu(MenuNode menuNode) {
+  public void addSubMenu(MenuNode<T> menuNode) {
     if (subMenus == null) {
       subMenus = new ArrayList<>();
     }

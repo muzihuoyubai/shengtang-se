@@ -1,19 +1,19 @@
 package club.banyuan.menu;
 
-import club.banyuan.machine.FlowStatus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class Menu {
+public class Menu<T extends Enum<T>> {
 
-  private MenuNode root;
-  private MenuNode curNode;
-  private final List<MenuNode> allNodes = new ArrayList<>();
+  private MenuNode<T> root;
+  private MenuNode<T> curNode;
+  private MenuFlow<T> menuFlow;
+  private final List<MenuNode<T>> allNodes = new ArrayList<>();
 
-  public Menu(List<MenuNode> allNodes) {
-    for (MenuNode allNode : allNodes) {
+  public Menu(List<MenuNode<T>> allNodes) {
+    for (MenuNode<T> allNode : allNodes) {
       addMenuNode(allNode);
     }
     if (root == null) {
@@ -22,23 +22,15 @@ public class Menu {
     curNode = root;
   }
 
-  public MenuNode getRoot() {
-    return root;
+  public MenuFlow<T> getMenuFlow() {
+    return menuFlow;
   }
 
-  public void setRoot(MenuNode root) {
-    this.root = root;
+  public void setMenuFlow(MenuFlow<T> menuFlow) {
+    this.menuFlow = menuFlow;
   }
 
-  public MenuNode getCurNode() {
-    return curNode;
-  }
-
-  public void setCurNode(MenuNode curNode) {
-    this.curNode = curNode;
-  }
-
-  public void addMenuNode(MenuNode menuNode) {
+  public void addMenuNode(MenuNode<T> menuNode) {
     if (menuNode.getMenuType() == MenuType.ROOT) {
       if (root != null) {
         throw new IllegalArgumentException("已经存在根节点");
@@ -59,19 +51,20 @@ public class Menu {
 
   public void display() {
     System.out.println(curNode.getTitle());
-    if (curNode.getSubMenus() != null) {
-      for (MenuNode subMenu : curNode.getSubMenus()) {
-        System.out.println(subMenu.getDesc());
-      }
+    if (curNode.getSubMenus() == null) {
+      return;
+    }
+    for (MenuNode<T> subMenu : curNode.getSubMenus()) {
+      System.out.println(subMenu.getDesc());
     }
   }
 
-  public MenuNode scanUserInput() {
+  public MenuNode<T> scanUserInput() {
     Scanner scanner = new Scanner(System.in);
     System.out.println();
     System.out.print("Your choice: ");
     String userInput = scanner.next();
-    Optional<MenuNode> selectNode = curNode.getSubMenus().stream()
+    Optional<MenuNode<T>> selectNode = curNode.getSubMenus().stream()
         .filter(t -> t.getInputMatches().equals(userInput)).findFirst();
 
     if (selectNode.isPresent()) {
@@ -84,35 +77,21 @@ public class Menu {
     }
   }
 
-  public FlowStatus toNextMenu(MenuNode menuNode) {
-
-    Optional<MenuNode> nextMenu = allNodes.stream().filter(t -> t == menuNode).findFirst();
-    if (nextMenu.isPresent()) {
-      curNode = menuNode;
-      return curNode.getFlowStatus();
-    } else {
-      throw new IllegalArgumentException("节点不存在:" + menuNode);
-    }
-  }
-
-  public MenuNode toNextMenu() {
-    curNode = curNode.getSubMenus().get(0);
-    return curNode;
-  }
-
-  public MenuNode back() {
-    curNode = curNode.getParentNode();
-    return curNode;
-  }
-
-  public void toNextMenu(FlowStatus flowStatus) {
-    Optional<MenuNode> menuNode = allNodes.stream().filter(t -> t.getFlowStatus() == flowStatus)
+  public void toNextMenu(T flowStatus) {
+    Optional<MenuNode<T>> nextMenu = allNodes.stream().filter(t -> t.getFlowStatus() == flowStatus)
         .findFirst();
-    if (menuNode.isPresent()) {
-      curNode = menuNode.get();
+    if (nextMenu.isPresent()) {
+      curNode = nextMenu.get();
     } else {
-      throw new IllegalArgumentException("不存在的流程:" + flowStatus);
+      throw new IllegalArgumentException("状态不存在:" + flowStatus);
     }
+  }
 
+  public T back() {
+    curNode = curNode.getParentNode();
+    if (menuFlow != null) {
+      menuFlow.setFlowStatus(curNode.getFlowStatus());
+    }
+    return curNode.getFlowStatus();
   }
 }
