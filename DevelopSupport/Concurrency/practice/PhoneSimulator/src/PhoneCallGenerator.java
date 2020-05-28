@@ -33,7 +33,6 @@ public class PhoneCallGenerator extends Thread {
         sleep(randomGenerator.nextInt(2));
       }
     } catch (InterruptedException e) {
-      // allow run method to terminate if thread is interrupted
     }
   }
 }
