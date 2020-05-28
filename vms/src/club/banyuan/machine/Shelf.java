@@ -1,6 +1,8 @@
 package club.banyuan.machine;
 
-public class Shelf {
+import java.io.Serializable;
+
+public class Shelf implements Serializable {
 
   private String code;
   private String name;

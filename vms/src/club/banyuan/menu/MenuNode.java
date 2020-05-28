@@ -1,9 +1,10 @@
 package club.banyuan.menu;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuNode<T extends Enum<T>> {
+public class MenuNode<T extends Enum<T>> implements Serializable {
 
   private String title;
   private String inputMatches;
