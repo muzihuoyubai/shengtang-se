@@ -1,6 +1,4 @@
-package club.banyuan.share.resource;
-
-import java.util.Arrays;
+package club.banyuan.sync.cls;
 
 public class Demo {
 

@@ -1,13 +1,10 @@
-package club.banyuan.share.resource;
-
-import java.util.Arrays;
+package club.banyuan.sync.staticmethod;
 
 public class Demo {
 
   public static void main(String[] args) {
-    Shop shop = new Shop(100);
-    Customer zhangsan = new Customer("张三",shop);
-    Customer lisi = new Customer("李四",shop);
+    Customer zhangsan = new Customer("张三");
+    Customer lisi = new Customer("李四");
 
     Thread zhangsanThread = new Thread(zhangsan);
     Thread lisiThread = new Thread(lisi);
