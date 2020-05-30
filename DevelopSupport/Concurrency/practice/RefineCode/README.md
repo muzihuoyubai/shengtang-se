@@ -2,7 +2,7 @@
 之所以这样做，是因为计算正弦值的速度很慢，它有助于弄清楚多线程计算此值的优势。
 
 1. 修改MaxMultithreaded.java文件
-将计算数组中最大值。参考SumMultithreaded代码。完成后，单元测试MaxValueTest应通过。
+计算Sin(数组元素)中最大值。参考SumMultithreaded代码。完成后，单元测试MaxValueTest应通过。
 
 2. 修改ReverseHelloMultithreaded文件，
 创建线程（我们将其称为线程1）。线程1创建另一个线程（线程2）；线程2创建线程3；依此类推，直到线程50。
