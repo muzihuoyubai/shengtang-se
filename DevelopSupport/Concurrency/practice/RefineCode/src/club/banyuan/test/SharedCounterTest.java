@@ -23,6 +23,6 @@ public class SharedCounterTest {
             total += result;
         }
         System.out.println("Total (should be 2000 if no races) = " + total);
-        assertNotEquals(2000, total);
+        assertEquals(2000, total);
     }
 }

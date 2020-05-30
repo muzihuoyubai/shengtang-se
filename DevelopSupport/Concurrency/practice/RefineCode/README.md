@@ -6,7 +6,15 @@
 
 2. 修改ReverseHelloMultithreaded文件，
 创建线程（我们将其称为线程1）。线程1创建另一个线程（线程2）；线程2创建线程3；依此类推，直到线程50。
-每个线程都应打印 "Hello from Thread <num>!"。完成后，保证ReverseHelloTest应成功运行
-
+每个线程都应打印 "Hello from Thread <num>!"。完成后，保证ReverseHelloTest应成功运行，如下
+```
+Hello from thread 50
+Hello from thread 49
+Hello from thread 48
+Hello from thread 47
+... 省略
+Hello from thread 2
+Hello from thread 1
+```
 3. 修改 SharedCounter.java 中的方法 increment. 
 这个方法应该启动numThreads数量的线程，并且每个线程都应该向counter中增加numIncrementsPerThread的值。
