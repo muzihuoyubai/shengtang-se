@@ -39,7 +39,7 @@ public class MaxMultithreaded {
    */
   public static double max(int[] arr, int numThreads) throws InterruptedException {
     int len = arr.length;
-    double ans = 0;
+    double ans = Double.NEGATIVE_INFINITY;
 
     // 创建并启动线程。
     MaxThread[] ts = new MaxThread[numThreads];
