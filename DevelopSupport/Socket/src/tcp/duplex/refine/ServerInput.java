@@ -1,6 +1,7 @@
 package tcp.duplex.refine;
 
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 import java.util.Scanner;
@@ -10,10 +11,12 @@ public class ServerInput implements Runnable {
 
   private List<Socket> socketList;
   private List<Sender> senderList;
+  private ServerSocket serverSocket;
 
-  public ServerInput(List<Socket> socketList, List<Sender> senderList) {
+  public ServerInput(List<Socket> socketList, List<Sender> senderList, ServerSocket serverSocket) {
     this.socketList = socketList;
     this.senderList = senderList;
+    this.serverSocket = serverSocket;
   }
 
   @Override
@@ -27,7 +30,6 @@ public class ServerInput implements Runnable {
         continue;
       }
       if ("quit".equals(input)) {
-        System.out.println("退出");
         socketList.forEach(t -> {
           try {
             t.close();
@@ -36,9 +38,15 @@ public class ServerInput implements Runnable {
           }
         });
         senderList.forEach(t -> t.getFuture().cancel(true));
+        try {
+          serverSocket.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
         break;
       }
       senderList.forEach(t -> t.setMessage(input.getBytes()));
     }
+    System.out.println("退出");
   }
 }

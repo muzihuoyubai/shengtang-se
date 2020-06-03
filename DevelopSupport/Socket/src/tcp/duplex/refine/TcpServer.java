@@ -20,10 +20,10 @@ public class TcpServer {
     List<Socket> socketList = new CopyOnWriteArrayList<>();
     List<Sender> senders = new CopyOnWriteArrayList<>();
     ExecutorService executorService = Executors.newCachedThreadPool();
-    executorService.submit(new ServerInput(socketList, senders));
 
     try (ServerSocket serverSocket = new ServerSocket(10000)) {
-      while (true) {
+      executorService.submit(new ServerInput(socketList, senders, serverSocket));
+      while (!serverSocket.isClosed()) {
         try {
           System.out.println("服务端启动，等待客户端连接");
           Socket socket = serverSocket.accept();
@@ -47,7 +47,7 @@ public class TcpServer {
     } catch (IOException e) {
       e.printStackTrace();
     }
-
+    executorService.shutdown();
     System.out.println("服务器退出");
   }
 
