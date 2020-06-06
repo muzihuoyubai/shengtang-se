@@ -1,4 +1,3 @@
-// import java.util.Math;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -55,31 +54,31 @@ public class AddRefine {
 
   @Test
   public void test() {
-    System.out.println(2.0 - 1.1);
-    BigDecimal bigDecimal = new BigDecimal("2.0");
-    BigDecimal bigDecimal1 = new BigDecimal("1.1");
+    // System.out.println(2.0 - 1.1);
+    // BigDecimal bigDecimal = new BigDecimal("2.0");
+    // BigDecimal bigDecimal1 = new BigDecimal("1.1");
 
-    System.out.println(bigDecimal.subtract(bigDecimal1));
+    // System.out.println(bigDecimal.subtract(bigDecimal1));
 
 
+
+
+    String one = "9999999999999999999";
+    String two = "9999999999999999999";
+
+    Assert.assertEquals(add(one, two), bigIntegerAdd(one, two));
+
+    one = "9999999999999";
+    two = "9999999999999999999";
+    Assert.assertEquals(add(one, two), bigIntegerAdd(one, two));
     //
-    //
-    // String one = "9999999999999999999";
-    // String two = "9999999999999999999";
-    //
-    // Assert.assertEquals(add(one, two), bigIntegerAdd(one, two));
-    //
-    // one = "9999999999999";
-    // two = "9999999999999999999";
-    // Assert.assertEquals(add(one, two), bigIntegerAdd(one, two));
-    //
-    // two = "9999999999999";
-    // one = "9999999999999999999";
-    // Assert.assertEquals(add(one, two), bigIntegerAdd(one, two));
-    //
-    // one = "19999999999999";
-    // two = "9999999999999999999";
-    // Assert.assertEquals(add(one, two), bigIntegerAdd(one, two));
+    two = "9999999999999";
+    one = "9999999999999999999";
+    Assert.assertEquals(add(one, two), bigIntegerAdd(one, two));
+
+    one = "19999999999999";
+    two = "9999999999999999999";
+    Assert.assertEquals(add(one, two), bigIntegerAdd(one, two));
 
   }
 
