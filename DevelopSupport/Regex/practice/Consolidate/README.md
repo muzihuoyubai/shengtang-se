@@ -208,3 +208,47 @@ $$$
 $$$0
 3$
 ```
+
+#### 12. 
+我们准备在市场上买一辆红色的卡车,所以想开发一个自动化web搜索程序，搜索各种网上新闻组和分类广告网站找到文本包含red、truck的语句, 还要包含价格信息。
+
+具体来说，单词red和短语(pickup/pick-up/pick up) truck中间最多出现两次其他单词。pick up truck 短语可以出现在red之前或之后。在red和pickup truck之后，文本还应该包含价格
+
+编写一段代码，将价格提取出来返回，测试代码时，将target 的list中保存所有测试成功和失败的字符串，然后传入方法中
+```
+public static List<Integer> getTruckPriceList(List<String> target);
+```
+
+```
+应该匹配成功
+red pickup truck $5000
+red pickup truck $5,000
+red pickup truck $1,234.56
+red pick-up truck $5000
+red pick up truck $5000
+red toyota pick-up truck $5000
+red toyota 1993 pick-up truck $5000
+blah blah red toyota 1993 pick-up truck blah blah $5000 blah
+pickup truck red $5000
+pick-up truck 1993 toyota red $5000
+blah blah blah pick-up truck toyota 1993 red blah blah blah $5000
+desperate: red 1993 toyota pickup truck for sale. $2,000 o.b.o.
+toy pickup truck - cherry red: $12.
+red red pickup pickup truck truck $5000.
+应该匹配不成功
+red
+truck
+pickup truck
+red pickup truck
+red $5000
+pickup truck $5000
+red truck $5000
+$5000 red pickup truck
+blue pickup truck $5000
+red car $5000
+red toyota 1993 pick-up truck
+red 1993 toyota automatic pick-up truck $5000
+fred's pick-up truck sold for $5000
+pick-up trucks by fred: $5000
+reddy for sale pickup truck: $5000)
+```
